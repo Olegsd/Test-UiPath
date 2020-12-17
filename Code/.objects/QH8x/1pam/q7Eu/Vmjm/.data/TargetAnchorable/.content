@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-16"?>
+<TargetAnchorable ContentHash="Lf0CtNa6_0uEF_pFnOJbog" DesignTimeRectangle="137, 128, 72, 42" FriendlyName="'More Options'" FullSelectorArgument="&lt;uia cls='MsoCommandBar' idx='1' /&gt;&lt;uia cls='NetUIOrderedGroup' name='Home' /&gt;&lt;uia cls='NetUIChunk' name='Zoom' /&gt;&lt;uia cls='NetUIRibbonButton' idx='1' name='More Options' /&gt;" FuzzySelectorArgument="&lt;uia cls='MsoCommandBar' /&gt;&lt;uia cls='NetUIOrderedGroup' name='Home' /&gt;&lt;uia cls='NetUIChunk' name='Zoom' /&gt;&lt;uia cls='NetUIRibbonButton' role='Menu Item' name='More Options' automationid='' check:fulltext='More Options' /&gt;" ScopeSelectorArgument="&lt;wnd app='outlook.exe' cls='rctrl_renwnd32' title='Inbox - oleg.dimitrov@servicecentrix.com - Outlook' /&gt;" SearchSteps="Selector, FuzzySelector, Image" Text="More Options" TextMethod="FullTextScrapping" TextSelector="&lt;uia role='Menu Item' /&gt;" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TargetAnchorable.Anchors>
+    <scg:List x:TypeArguments="ITarget" Capacity="4">
+      <Target DesignTimeRectangle="128, 83, 173, 108" ElementType="Container" FriendlyName="'Schedule a'" FullSelectorArgument="&lt;uia cls='MsoCommandBar' idx='1' /&gt;&lt;uia cls='NetUIOrderedGroup' name='Home' /&gt;&lt;uia cls='NetUIChunk' name='Zoom' /&gt;" FuzzySelectorArgument="&lt;uia cls='MsoCommandBar' /&gt;&lt;uia cls='NetUIOrderedGroup' name='Home' /&gt;&lt;uia cls='NetUIChunk' name='Zoom' role='Group' automationid='' check:fulltext='Schedule a Meeting&amp;#x9;More Options&amp;#x9;&amp;#xA;Start Instant Meeting&amp;#x9;More Options' /&gt;" SearchSteps="Selector, FuzzySelector, Image" Text="Schedule a Meeting&#x9;More Options&#x9;&#xA;Start Instant Meeting&#x9;More Options" TextMethod="FullTextScrapping" TextSelector="&lt;uia role='Group' /&gt;">
+        <imageRef attrName="ImageBase64" xmlns="">1VEtUulJ_TUSJ_NpvoJVW3Q</imageRef>
+      </Target>
+    </scg:List>
+  </TargetAnchorable.Anchors>
+  <imageRef attrName="ImageBase64" xmlns="">0H3LSOFq4PkeSzye9pPJnYw</imageRef>
+  <imageRef attrName="InformativeScreenshot" originalValue="8aee980511f877572f1209ae2e11482c.png" xmlns="">0VsuyeRcEI0alKTPLyNvB2A</imageRef>
+</TargetAnchorable>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-16"?>
+<TargetApp ContentHash="PBvi11pfOk-OcjzBOVWL_g" FilePath="C:\Program Files (x86)\Microsoft Office\root\Office16\outlook.exe" Selector="&lt;wnd app='outlook.exe' cls='rctrl_renwnd32' title='Inbox - oleg.dimitrov@servicecentrix.com - Outlook'/&gt;" xmlns="http://schemas.uipath.com/workflow/activities/uix">
+  <imageRef attrName="IconBase64" xmlns="">0fcwBKS-5eUSCLd1rFtFvCw</imageRef>
+  <imageRef attrName="InformativeScreenshot" originalValue="3229d02695a361c74e6b5db9beb38672.png" xmlns="">0Jjo7og4gBUOQcrqEmZx4KQ</imageRef>
+</TargetApp>

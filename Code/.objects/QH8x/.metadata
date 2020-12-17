@@ -1,0 +1,14 @@
+﻿{
+  "Id": "QH8xifHS6UCXtAH12an3uw",
+  "Reference": "NQbROpR3v0GTz8fJUaxW8A/QH8xifHS6UCXtAH12an3uw",
+  "Name": "Outlook",
+  "Type": "App",
+  "Created": "2020-12-17T18:33:49.4091072Z",
+  "CreatedBy": [
+    "UiPath.Platform, Version=20.10.4.0, Culture=neutral, PublicKeyToken=null"
+  ],
+  "Updated": "2020-12-17T18:58:10.6637046Z",
+  "UpdatedBy": [
+    "UiPath.Platform, Version=20.10.4.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

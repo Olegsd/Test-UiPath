@@ -1,0 +1,266 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="QBuildQueueStructure"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="out_tQ" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>QBuildQueueStructure_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Returns a blank table tQ,  with structure taken from Config.xlsx&#xA;Purpose: Provides ready-to-use table, withe same structure as the Queue file.&#xA;Called by some Q-transaction workflow&#xA;&#xA;-- Template SCX 0.3c--" DisplayName="QBuildQueueStructure" sap2010:WorkflowViewState.IdRef="Sequence_3">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="sd:DataTable" Name="tQFields" />
+      <Variable x:TypeArguments="x:Boolean" Default="False" Name="bDebugMode" />
+    </Sequence.Variables>
+    <If Condition="[in_Config is nothing]" DisplayName="Check if argument passed" sap2010:WorkflowViewState.IdRef="If_4">
+      <If.Then>
+        <Throw DisplayName="Throw Missing arguments" Exception="[New Exception(&quot;Aborting: Arguments not passed&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_1" />
+      </If.Then>
+    </If>
+    <ui:ReadRange AddHeaders="True" sap2010:Annotation.AnnotationText="Uses named range QueueFields" DataTable="[tQFields]" DisplayName="Read Fields definition" sap2010:WorkflowViewState.IdRef="ReadRange_1" Range="QueueFields" SheetName="QueueDefinition" WorkbookPath="[Path.Combine( in_Config(&quot;DataPath&quot;).ToString,  &quot;Config.xlsx&quot;)]" />
+    <Sequence DisplayName="Prebuid mandatory fields" sap2010:WorkflowViewState.IdRef="Sequence_11">
+      <Assign DisplayName="Create table" sap2010:WorkflowViewState.IdRef="Assign_10">
+        <Assign.To>
+          <OutArgument x:TypeArguments="sd:DataTable">[out_tQ]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="sd:DataTable">[New system.Data.DataTable]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:AddDataColumn x:TypeArguments="x:Int32" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="False" AutoIncrement="True" ColumnName="TransactionID" DataTable="[out_tQ]" DisplayName="Add data column TransactionID" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_17" MaxLength="0" Unique="True" />
+      <ui:AddDataColumn x:TypeArguments="s:DateTime" Column="{x:Null}" AllowDBNull="False" AutoIncrement="False" ColumnName="CreatedDate" DataTable="[out_tQ]" DefaultValue="[Now]" DisplayName="Add data column CreatedDate" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_9" MaxLength="0" Unique="False" />
+      <ui:AddDataColumn x:TypeArguments="x:String" Column="{x:Null}" AllowDBNull="False" AutoIncrement="False" ColumnName="Status" DataTable="[out_tQ]" DefaultValue="New" DisplayName="Add data column Status" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_11" MaxLength="100" Unique="False" />
+      <ui:AddDataColumn x:TypeArguments="x:String" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="FailureType" DataTable="[out_tQ]" DisplayName="Add data column FailureType" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_16" MaxLength="100" Unique="False" />
+      <ui:AddDataColumn x:TypeArguments="x:String" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="Result" DataTable="[out_tQ]" DisplayName="Add data column Result" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_12" MaxLength="-1" Unique="False" />
+      <ui:AddDataColumn x:TypeArguments="x:String" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="History" DataTable="[out_tQ]" DisplayName="Add data column History" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_13" MaxLength="-1" Unique="False" />
+      <ui:AddDataColumn x:TypeArguments="x:Int32" Column="{x:Null}" AllowDBNull="False" AutoIncrement="False" ColumnName="Retries" DataTable="[out_tQ]" DefaultValue="0" DisplayName="Add data column Retries" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_15" MaxLength="0" Unique="False" />
+    </Sequence>
+    <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[tQFields]" DisplayName="For each row add Columns" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
+      <ui:ForEachRow.Body>
+        <ActivityAction x:TypeArguments="sd:DataRow">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body FE" sap2010:WorkflowViewState.IdRef="Sequence_13">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="sFieldName" />
+              <Variable x:TypeArguments="x:String" Name="sFieldType" />
+            </Sequence.Variables>
+            <Assign DisplayName="Assign F" sap2010:WorkflowViewState.IdRef="Assign_13">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[sFieldName]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[row.Item("FieldName").ToString]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_14">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[sFieldType]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[row.Item("FieldType").ToString]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <If Condition="[NOT out_tQ.Columns.Contains(sFieldName) and sFieldName &lt;&gt; &quot;&quot;]" DisplayName="If current is not one of the Prebuilt fields" sap2010:WorkflowViewState.IdRef="If_8">
+              <If.Then>
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_12">
+                  <If Condition="[bDebugMode]" DisplayName="If Debug Print 1" sap2010:WorkflowViewState.IdRef="If_9">
+                    <If.Then>
+                      <WriteLine DisplayName="Write line deb" sap2010:WorkflowViewState.IdRef="WriteLine_11" Text="[&quot;adding column &quot;+sFieldName+&quot; , type &quot;+sFieldType]" />
+                    </If.Then>
+                  </If>
+                  <ui:AddDataColumn x:TypeArguments="x:Object" Column="{x:Null}" DefaultValue="{x:Null}" AllowDBNull="True" AutoIncrement="False" ColumnName="[row.Item(&quot;FieldName&quot;).ToString]" DataTable="[out_tQ]" DisplayName="Add data column" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_6" MaxLength="100" Unique="False" />
+                  <Assign DisplayName="Set data type" sap2010:WorkflowViewState.IdRef="Assign_17">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="s:Type">[out_tQ.Columns(sFieldName).DataType]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="s:Type">[System.Type.GetType("System."+sFieldType)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <If Condition="[bDebugMode]" DisplayName="If Debug Print 2" sap2010:WorkflowViewState.IdRef="If_7">
+                    <If.Then>
+                      <WriteLine DisplayName="Write line deb" sap2010:WorkflowViewState.IdRef="WriteLine_15" Text="[&quot;added column &quot;+out_tQ.Columns(sFieldName).ColumnName+&quot; , type &quot;+out_tQ.Columns(sFieldName).DataType.ToString]" />
+                    </If.Then>
+                  </If>
+                </Sequence>
+              </If.Then>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEachRow.Body>
+    </ui:ForEachRow>
+    <If Condition="[bDebugMode]" DisplayName="If debug print 3" sap2010:WorkflowViewState.IdRef="If_11">
+      <If.Then>
+        <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_17" Text="[&quot;Number of columns in table out_tQ asseblied : &quot;+out_tQ.Columns.Count.ToString]" />
+      </If.Then>
+    </If>
+    <sads:DebugSymbol.Symbol>d2dEOlxNeURvY3NcVWlQYXRoUHJvamVjdHNcTEVBUk5JTkdcRlJBTUVXT1JLXEZyYW1ld29yayBTQ1ggMC4zY1xDb2RlXEZyYW1ld29ya1xRQnVpbGRRdWV1ZVN0cnVjdHVyZS54YW1sRUwDpgEOAgEBTzVPPAIBAlEFVQoCAVVWBVblAgIBT1cFZxACAStoBZ8BFQIBCKABBaQBCgIBA1ETUSsCAVZTCVOqAQIBWFZwVnwCAVNW1gFW4wECAVJW7gFW/wECAVFWjQJW4gICAVBYB18QAgFLYAdgtQICAUdhB2GyAgIBQmIHYqcCAgE9YwdjtQICATlkB2SqAgIBNWUHZawCAgExZgdmpAICASxoNmhCAgEpbgucARYCAQmgAROgASECAQSiAQmiAcABAgEGU0BTfQIBWV02XVECAU5aN1o/AgFMYJEBYKABAgFKYKsBYLUBAgFIYa0BYbQBAgFGYX1higECAUVhlQFhnwECAUNipgFiqwECAUFie2KDAQIBQGKOAWKYAQIBPmOSAWOfAQIBPGOqAWO0AQIBOmSSAWSaAQIBOGSlAWSvAQIBNmWSAWWbAQIBNGWmAWWwAQIBMmamAWapAQIBMGZ6ZoMBAgEvZo4BZpgBAgEtcw16FgIBJXsNggEWAgEhgwENmwESAgEKogFhogG9AQIBB3g4eFgCASh1OXVFAgEmgAE4gAFYAgEkfTl9RQIBIoMBG4MBawIBC4UBEZkBHAIBDIYBE4oBGAIBGosBE4sB0wICARaMAROTARwCARKUAROYARgCAQ2GASGGAS8CARuIAReIAb8BAgEdiwGeAYsBygECARmLAdUBiwHfAQIBF5EBPJEBZwIBFI4BPY4BYgIBE5QBIZQBLwIBDpYBF5YB+wECARCIAXOIAbwBAgEelgFzlgH4AQIBEQ==</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Throw_1" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="464,209.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ReadRange_1" sap:VirtualizedContainerService.HintSize="516.8,88">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_10" sap:VirtualizedContainerService.HintSize="243.2,60" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_17" sap:VirtualizedContainerService.HintSize="243.2,22.4" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_9" sap:VirtualizedContainerService.HintSize="243.2,22.4" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_11" sap:VirtualizedContainerService.HintSize="243.2,22.4" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_16" sap:VirtualizedContainerService.HintSize="243.2,22.4" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_12" sap:VirtualizedContainerService.HintSize="243.2,22.4" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_13" sap:VirtualizedContainerService.HintSize="243.2,22.4" />
+      <sap2010:ViewStateData Id="AddDataColumn`1_15" sap:VirtualizedContainerService.HintSize="243.2,22.4" />
+      <sap2010:ViewStateData Id="Sequence_11" sap:VirtualizedContainerService.HintSize="516.8,621.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="464,60.8" />
+      <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="464,60.8" />
+      <sap2010:ViewStateData Id="WriteLine_11" sap:VirtualizedContainerService.HintSize="211.2,62.4" />
+      <sap2010:ViewStateData Id="If_9" sap:VirtualizedContainerService.HintSize="243.2,52.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="AddDataColumn`1_6" sap:VirtualizedContainerService.HintSize="243.2,22.4" />
+      <sap2010:ViewStateData Id="Assign_17" sap:VirtualizedContainerService.HintSize="243.2,60.8" />
+      <sap2010:ViewStateData Id="WriteLine_15" sap:VirtualizedContainerService.HintSize="211.2,62.4" />
+      <sap2010:ViewStateData Id="If_7" sap:VirtualizedContainerService.HintSize="243.2,52.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_12" sap:VirtualizedContainerService.HintSize="265.6,433.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_8" sap:VirtualizedContainerService.HintSize="464,584" />
+      <sap2010:ViewStateData Id="Sequence_13" sap:VirtualizedContainerService.HintSize="486.4,910.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEachRow_2" sap:VirtualizedContainerService.HintSize="516.8,1059.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_17" sap:VirtualizedContainerService.HintSize="211.2,62.4" />
+      <sap2010:ViewStateData Id="If_11" sap:VirtualizedContainerService.HintSize="516.8,52.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="539.2,2251.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="QBuildQueueStructure_1" sap:VirtualizedContainerService.HintSize="579.2,2371.2" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
